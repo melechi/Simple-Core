@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<activeRecord version="1.0">
+	<name>account</name>
+	<prefix>account</prefix>
+	<database>s3core</database>
+	<type>table</type>
+	<schema>
+		<column name="account_id"				type="int" length="10" primarykey="true" id="true" />
+		<column name="account_username"			type="varchar" length="255" />
+		<column name="account_password"			type="varchar" length="255" />
+		<column name="account_email"			type="varchar" length="255" />
+		<column name="account_confirmationcode"	type="varchar" length="255" />
+		<column name="account_status"			type="int" length="2" />
+		<column name="account_created"			type="timestamp" length="0" />
+		<column name="account_lastlogin"		type="timestamp" length="0" />
+		<column name="account_lastip"			type="varchar" length="15" />
+		<column name="account_privs"			type="set" length="0" />
+		<column name="account_namespace"		type="varchar" length="255" />
+	</schema>
+</activeRecord>

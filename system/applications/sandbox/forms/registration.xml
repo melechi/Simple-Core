@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<fml version="1.0" lang="en"  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.s3core.com/fml/">
+	<form id="registration" method="post" action="">
+		<fieldset id="login" legend="Login Details">
+			<field label="Email Address:" id="account_email" type="text" size="50">
+				<rule type="required" />
+				<rule type="regx" pattern="/^\w+([\.-]?\w+)*@(\w+([\.-]?\w+)*(\.\w{2,4})+)$/i">
+					<onFail>
+						<conditional condition="pattern.fail" message="Invalid email address. You must use the name@domain standard." />
+					</onFail>
+				</rule>
+			</field>
+			<field label="Confirm Email Address:" id="account_email_confirm" type="text" size="50">
+				<rule type="required" />
+				<rule type="fieldmatch" field="account_email" />
+			</field>
+			<field id="account_password" label="Password:" type="password" size="50">
+				<rule type="required" />
+				<rule type="length" min="6" max="64">
+					<onFail>
+						<conditional condition="min.fail" message="Password is too short. Minimum password length is {rule.min} characters." />
+						<conditional condition="max.fail" message="Password is too long. Maximum password length is {rule.max} characters." />
+					</onFail>
+				</rule>
+			</field>
+			<field id="account_password_confirm" label="Confirm Password:" type="password" size="50">
+				<rule type="required" />
+				<rule type="fieldmatch" field="account_password" />
+			</field>
+		</fieldset>
+		<fieldset id="account" legend="Account Details">
+			<field id="title_id" label="Title:" type="select">
+				<option value="0"></option>
+				<query connection="songcentral" keyfield="title_id" valuefield="title">SELECT * FROM title;</query>
+				<rule type="required" />
+			</field>
+			<field id="firstname" label="First Name:" type="text" size="50">
+				<rule type="required" />
+			</field>
+			<field id="surname" label="Surname:" type="text" size="50">
+				<rule type="required" />
+			</field>
+			<field id="initial" label="Middle Initial:" type="text" />
+			<field id="address" label="Address:" type="text" size="50" />
+			<field id="suburb" label="Suburb:" type="text" size="50">
+				<rule type="required" />
+			</field>
+			<field id="state_id" label="State:" type="select">
+				<option value="0"></option>
+				<query connection="songcentral" keyfield="state_id" valuefield="state_name">SELECT * FROM state;</query>
+				<rule type="required" />
+			</field>
+			<field id="postcode" label="Postcode:" type="text">
+				<rule type="required" />
+			</field>
+			<field id="country_id" label="Country:" type="select">
+				<rule type="required" />
+				<option value="0"></option>
+				<query connection="songcentral" keyfield="country_id" valuefield="country_name">SELECT * FROM country WHERE isActive=1;</query>
+			</field>
+			<field id="www" label="Website URL:" type="text" size="50" />
+			<field id="phone" label="Telephone:" type="text" />
+			<field id="mobile" label="Mobile:" type="text" />
+			<field id="birth_date" label="Date of Birth:" type="text" />
+		</fieldset>
+		<fieldset id="buttons" legend=" "><!-- NB: leave space char within legend because aids in css!-->
+			<field id="account_submit" type="submit" label="Submit Registration" />
+		</fieldset>
+	</form>
+</fml>

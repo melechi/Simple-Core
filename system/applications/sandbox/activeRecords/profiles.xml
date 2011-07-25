@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<activeRecord version="1.0">
+	<name>profiles</name>
+	<prefix>profiles</prefix>
+	<database>s3core</database>
+	<type>table</type>
+	<schema>
+		<column name="profiles_id"			type="int" length="10" primarykey="true" id="true" />
+		<column name="profiles_accountid"	type="int" length="10" />
+		<column name="profiles_table"		type="varchar" length="255" />
+		<column name="profiles_table_id"	type="int" length="10" />
+	</schema>
+</activeRecord>

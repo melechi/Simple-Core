@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<settings>
+	<!--
+	<database name="sandbox">
+		<type>mysql</type>
+		<host>localhost</host>
+		<username>username</username>
+		<password>password</password>
+		<database>sandbox</database>
+		<prefix>_sandbox</prefix>
+	</database>
+	-->
+	<database name="chat">
+		<type>mysql</type>
+		<host>localhost</host>
+		<username>root</username>
+		<password></password>
+		<database>chat</database>
+		<prefix>chat_</prefix>
+	</database>
+	<hooks>
+		<hook component="smarty" />
+	</hooks>
+</settings>
+<!--<?php-->
+<!--class component_smarty_hooks extends hook-->
+<!--{-->
+<!--	public function onBeforeApplicationInit-->
+<!--}-->
+<!--?>-->

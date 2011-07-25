@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<fml version="1.0">
+	<form id="registration" method="post" action="">
+		<fieldset id="login_details" legend="Login Details">
+			<field label="Email Address:" id="account_email" type="email" size="50">
+				<rule type="required" />
+				<rule type="emailExists" />
+			</field>
+			<field label="Confirm Email Address:" id="account_email_confirm" type="text" size="50">
+				<rule type="required" />
+				<rule type="fieldmatch" field="account_email">
+					<conditional>
+						<if condition="this.getStatus()==FML_RULE_STATUS_FAIL">
+							<setFieldMessage field="account_email" message="Email does not match." />
+							<setFieldMessage field="account_email_confirm" message="Email does not match." />
+						</if>
+					</conditional>
+				</rule>
+			</field>
+			<field id="account_password" label="Password:" type="password" size="50">
+				<rule type="required" />
+				<rule type="length" min="6" max="64" />
+			</field>
+			<field id="account_password_confirm" label="Confirm Password:" type="password" size="50">
+				<rule type="required" />
+				<rule type="fieldmatch" field="account_password">
+					<conditional>
+						<if condition="this.getStatus()==FML_RULE_STATUS_FAIL">
+							<setFieldMessage field="account_password" message="Password does not match." />
+							<setFieldMessage field="account_password_confirm" message="Password does not match." />
+						</if>
+					</conditional>
+				</rule>
+			</field>
+			
+			<field id="user_name_first" label="First Name" type="text" size="50">
+				<rule type="required" />
+			</field>
+			<field id="user_name_last" label="Last Name" type="text" size="50">
+				<rule type="required" />
+			</field>
+			<control id="account_submit" label="Submit Registration" />
+		</fieldset>
+	</form>
+</fml>

@@ -1,0 +1,1 @@
+{TEMPLATE:$:TEMPLATEDIR.\content\entrieslist.tpl}

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<activeRecord version="1.0">
+	<name>blog_entry</name>
+	<prefix>blog_entry</prefix>
+	<connection>core</connection>
+	<type>table</type>
+	<schema>
+		<column name="blog_entry_id"			type="int"		length="10" primarykey="true" id="true" />
+		<column name="blog_entry_account_id"	type="int"		length="10" />
+		<column name="blog_entry_title"			type="varchar"	length="255" />
+		<column name="blog_entry_body"			type="text"		length="0" />
+		<column name="blog_entry_timestamp"		type="int"		length="10" />
+		<column name="blog_entry_public"		type="tinyint"	length="1" />
+		<column name="blog_entry_status"		type="tinyint"	length="1" />
+	</schema>
+</activeRecord>

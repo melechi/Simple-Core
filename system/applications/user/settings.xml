@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<settings>
+	<database name="user">
+		<type>mysql</type>
+		<host>localhost</host>
+		<username>admin</username>
+		<password>r44e</password>
+		<database>user</database>
+		<prefix></prefix>
+	</database>
+</settings>

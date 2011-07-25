@@ -1,0 +1,60 @@
+form fieldset ul {
+	clear: both;
+	list-style-type: none;
+	padding: 0.75em 0em 0.5em 0em;
+	margin: 0.5em 0em 0.5em 0em;
+	height: auto;
+}
+form fieldset ul li {
+	/*margin: 0;*/
+	padding: 0;
+	/*min-height:2em;*/
+	vertical-align: middle;
+	float: left;
+}
+
+/* spacing for checkboxes and radio buttons */
+form fieldset ul li label {margin-right:0.75em;}
+form fieldset ul li label input {margin-left:0.2em;}
+
+form fieldset div.group div.column label {line-height:1.5em;}
+
+form .htmlblock {
+	clear: both;
+}
+/*
+form fieldset ul li.button {
+	padding-left: 10px;
+}
+*/
+form fieldset ul.required .label,
+form fieldset div.required label,
+form fieldset .required li.col_2 {color:brown} /*label*/
+
+form .required .label {color:brown}
+
+form div.required input,
+form .required input,
+form .required select,
+form .required textarea {
+	background-color: #FFFFDD;
+}
+
+form input.error,
+form select.error,
+form textarea.error,
+form label.error input,
+form label.error select,
+form label.error textarea {
+	background-color: #FFFFBB;
+	margin-bottom: 1em;
+}
+
+.error
+{
+	color: red;
+}
+.message
+{
+	color: green;
+}

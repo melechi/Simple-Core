@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<driver>
+	<type>mysql</type>
+	<functions>
+		<connect>mysql_connect</connect>
+		<pconnect>mysql_pconnect</pconnect>
+		<close>mysql_close</close>
+		<selectdb>mysql_select_db</selectdb>
+		<dbquery>mysql_query</dbquery>
+		<result>mysql_result</result>
+		<affectedrows>mysql_affected_rows</affectedrows>
+		<numrows>mysql_num_rows</numrows>
+		<fetcharray>mysql_fetch_array</fetcharray>
+		<seek>mysql_data_seek</seek>
+		<lastid>mysql_insert_id</lastid>
+		<queryinfo>mysql_info</queryinfo>
+		<errormessage>mysql_error</errormessage>
+	</functions>
+</driver>

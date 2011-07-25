@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<server>
+	<name>Simple Core</name>
+	<providerDir>providers</providerDir>
+	<providers>
+		<!-- <provider type="polling" handler="updater" interval="1000" /> -->
+		<provider type="remoting" namespace="application">
+			<module name="main">
+				<method name="read" args="0" />
+				<method name="initManagement" args="1" />
+			</module>
+		</provider>
+		<provider type="remoting" namespace="component">
+			<module name="main">
+				<method name="read" args="0" />
+				<method name="install" args="1" />
+			</module>
+		</provider>
+	</providers>
+</server>

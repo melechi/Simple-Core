@@ -1,0 +1,8 @@
+.exists
+{
+	color: green !important;
+}
+.nonexists
+{
+	color: red !important;
+}

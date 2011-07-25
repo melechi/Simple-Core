@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<fml version="1.0">
+	<form id="user_list" method="post" action="">
+		<fieldset id="user_list_fieldset" legend="User List">
+			<field id="service_id" label="" type="checkbox" layout="vertical">
+				<sql id="userList_sql">SELECT * FROM [PREFIX]account LEFT JOIN user.user ON user_account_id=account_id;</sql>
+				<query id="userList_query" sqlid="userList_sql" connection="core">
+					<eachQueryResult as="result">
+						<option id="account_id_{result.account_id}" label="{result.user_name_first} {result.user_name_last}" value="{result.account_id}" />
+					</eachQueryResult>
+				</query>
+			</field>
+			<control id="account_submit" label="Delete Selected Users" />
+		</fieldset>
+	</form>
+</fml>

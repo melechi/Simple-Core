@@ -1,0 +1,125 @@
+CHANGE LOG
+==========
+Updated: 08/04/2009
+==========
+1.0.0 - 1.1.0
+Classing Engine
+===============
+* Added the ability to declare a class as abstract by setting $abstract:true in the class definition header block.
+* Classes declared as abstract may now declare methods as abstract.
+* Traits are now abstract and cannot be directly initiated using new.
+* Interfaces are now abstract and cannot be directly initiated using new.
+* Traits can now implement interfaces as per the traits specification document (http://web.cecs.pdx.edu/~black/publications/TR_CSE_02-012.pdf).
+* Interfaces can now extend other interfaces.
+
+Observables
+===========
+* A new observable method, observeOnce(), allows observing of an event once before it is auto-unobserved.
+* A new observable method, observeTimes(x), allows observing of an event x times before it is auto-unobserved.
+* The Observable trait now implements the Observable interface so it is no longer nessecerry to declare both in class definitions.
+
+Configurable
+============
+* The Configurable trait now implements the Configurable interface so it is no longer nessecerry to declare both in class definitions.
+
+Extensions
+==========
+* Further extensions have been made to the base object class, allowing for a set of new useful object testing functions. These are:
+	- Object.isDefined(object) - Returns true of the object is NOT undefined.
+	- Object.isDate(object) - Returns true if the object is a date object.
+	- Object.isNull(object) - Returns true if the object is null.
+	- Object.isEmpty(object,strict(boolean)) - Returns true if the object is considered empty.
+	 	-	* Empty values include:
+			* '' - An empty String.
+			* ' ' - A string with only one or more spaces.
+			* 0 - As an Integer.
+			* '0' - As a String.
+			* [] - An empty array.
+			* null
+			* false
+			* undefined
+			* 
+			* In Strict Mode, these values are also included:
+			* \t - A tab character.
+			* \v - A vertical tab.
+			* \s - any white space character, including space, tab, form feed, line feed and other unicode spaces.
+			* Also included in strict mode are the previous values, mixed in
+			* with the non-strict values (where applicable).
+* Object.isArray() now uses the JavaScript community standard technique for detecting if an object is an array.
+* Two new functions are available as extensions to all functions. These are:
+	- function(){}.defer(milliseconds) - Defer a functions execution by x milliseconds.
+	- function(){}.delay(seconds) - Defers a functions execution by x seconds.
+* The base Number object has been extended to allow for common calculation functions used when mapping.
+
+Garbage Collection
+==================
+* A new Garbage collection class has been created. This is a singleton class and does not do auto-garbage collection.
+	- The only method available at the moment is $PWT.GC.object(object) where object is the object that you want cleaned up.
+	- This method assures that objects and array are correctly cleaned up.
+ 
+ When
+ ====
+ * A new specialized class has been introduced called 'When'. This class enables the
+   observing of variables, assigning callback functions for specific changes.
+   	- Example:
+		window.foobar=false;
+		$PWT.when(window,'foobar').isTrue
+		(
+			function()
+			{
+				alert('foobar is true!');
+			}
+		);
+		window.foobar=true;
+ 
+ Charts
+ ======
+ * A new charting API has been introducted. The first charting engine to be supported is Open Flash Charts 2 (http://teethgrinder.co.uk/open-flash-chart-2/).
+ 	- The API is available through the $PWT.chart namespace.
+ 	- Example:
+ 		new $PWT.chart.OFC
+		(
+			{
+				renderTo:	'chart1',
+				type:		'bar_glass',
+				title:		'Test Chart',
+				width:		1406,
+				height:		410,
+				y_axis:
+				{
+					max:	20
+				},
+				tooltip:
+				{
+					title:	'font-size:16px;color:#FF0000;'
+				},
+				legend:			true,
+				yLegendText:	'OFC Test'
+			},
+			{
+				onRender: function(chart)
+				{
+					chart.loadData
+					(
+						{
+							colour:		"#000000",
+							text:		"Dataset 1",
+							values:		[9,6,7,9,5,7,6,9,7]
+						}
+					);
+				}
+			}
+		);
+ MVC
+ ===
+ * The Shell View is no longer hard coded and the shellView config option is no longer ignored.
+ 
+ Utility
+ =======
+ * A new utility function, $PWT.util.id() is available to generate incremental IDs.
+ 
+ Misc
+ ====
+ * All classes that used both the Configurable/Observable traits and interfaces now only use the traits since those traits now implement their respective interfaces.
+ * The PWT constructor no longer initiates the PAW ActionScript3 Class ($$PAW).
+ * Many other bug fixes and very minor changes.

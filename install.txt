@@ -1,0 +1,8 @@
+svn checkout
+change index.php to have correct config and simplecore dirs
+symlink such that songcentral/applications/core is the simplecore/system/applications/core dir
+ensure there's a settings.xml in songcentral/applications/songcentral/settings.xml
+ensure 'debug' is set to '1' in your framework's config file
+don't make a silly mistake with config files
+the config file in songcentral is old and obsolete and confusing.
+you need mod_rewrite, AND allow-directives: all

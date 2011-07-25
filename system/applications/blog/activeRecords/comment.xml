@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<activeRecord version="1.0">
+	<name>blog_comment</name>
+	<prefix>blog_comment</prefix>
+	<connection>core</connection>
+	<type>table</type>
+	<schema>
+		<column name="blog_comment_id"			type="int"		length="10" primarykey="true" id="true" />
+		<column name="blog_comment_entry_id"	type="int"		length="10" />
+		<column name="blog_comment_account_id"	type="int"		length="10" />
+		<column name="blog_comment_user_name"	type="varchar"	length="255" />
+		<column name="blog_comment_body"		type="text"		length="0" />
+		<column name="blog_comment_timestamp"	type="int"		length="10" />
+		<column name="blog_comment_anonymous"	type="tinyint"	length="1" />
+		<column name="blog_comment_status"		type="tinyint"	length="1" />
+	</schema>
+</activeRecord>

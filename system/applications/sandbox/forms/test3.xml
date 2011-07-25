@@ -1,0 +1,7 @@
+<fml version="1.0">
+	<field label="Aggregated Field a1" id="ag1a" type="textarea" />
+	<field label="Aggregated Field a2" id="ag2a" type="text" />
+	<field label="Aggregated Field a3" id="ag3a" type="text" />
+	<field label="Aggregated Field a4" id="ag4a" type="text" />
+	<field label="Aggregated Field a5" id="ag5a" type="text" />
+</fml>

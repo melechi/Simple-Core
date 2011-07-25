@@ -1,0 +1,106 @@
+<fml version="1.0" local="en">
+	<form id="testForm" method="post" action="" class="testClass" style="border:1px solid red;">
+		<comment>This is a private comment.</comment>
+		<comment public="true">This is a public comment.</comment>
+		<html id="html1">
+			<![CDATA[
+				<h1>&lt;FML Test&gt;</h1>
+			]]>
+		</html>
+		<fieldset id="fieldset1" legend="Fieldset 1">
+			<field label="Username" id="account_username" type="text">
+				<rule type="required" />
+			</field>
+			<field label="Stuff!" id="account_stuff" type="textarea" rows="20" cols="60" />
+			<field label="{local.emailAddress}" id="account_email" type="text" size="50">
+				<rule id="account_email_rule_required" type="required" />
+				<rule id="account_email_rule_pattern" type="pattern" pattern="/^\w+([\.-]?\w+)*@(\w+([\.-]?\w+)*(\.\w{2,4})+)$/i">
+					<conditional id="c1">
+						<if id="c1_if" condition="this.getStatus()===FML_RULE_STATUS_FAIL">
+							<setFieldMessage id="message1" field="account_email" message="Invalid email address." />
+						</if>
+						<elseif id="c1_elseif" condition="this.getStatus()===FML_RULE_STATUS_PASS">
+							<setFieldMessage id="message2" field="account_email" message="Email address is valid." />
+						</elseif>
+						<else id="c1_else">
+							<setFieldMessage id="message3" field="account_email" message="Email address was not validated!?" />
+						</else>
+					</conditional>
+				</rule>
+			</field>
+			<field label="Password" id="account_password" type="password">
+				<rule id="r0" type="required" />
+			</field>
+			<field label="Confirm Password" id="account_password_confirm" type="password">
+				<rule id="r1" type="required" />
+				<rule id="r2" type="fieldmatch" field="account_password">
+					<conditional id="c2">
+						<if id="c2_if" condition="this.getStatus()==FML_RULE_STATUS_FAIL">
+							<setFieldMessage id="message4" field="account_password_confirm" message="Passwords do not match." />
+						</if>
+					</conditional>
+				</rule>
+			</field>
+			<field label="Comment" id="account_comment" type="textarea" disabled="true" rows="4" cols="20" />
+			<field id="account_country" type="select" label="Country">
+				<option id="option_1" label="Australia" value="1" selected="true" />
+				<option id="option_2" label="America" value="2" />
+				<option id="option_3" label="China" value="3" />
+			</field>
+			<field id="account_state" label="State:" type="select">
+				<option id="option_blank" label="" value="" />
+				<sql id="stateQuery">SELECT * FROM [PREFIX]state;</sql>
+				<query id="query1" sqlid="stateQuery" connection="songcentral">
+					<eachQueryResult id="each1" as="result">
+						<conditional>
+							<if condition="{result.state_id}==2">
+								<option id="option_x{result.state_id}" label="{result.state_name}" value="{result.state_id}" selected="true" />
+							</if>
+							<else>
+								<option id="option_x{result.state_id}" label="{result.state_name}" value="{result.state_id}" />
+							</else>
+						</conditional>
+					</eachQueryResult>
+				</query>
+				<rule type="required" />
+			</field>
+			<field id="account_gender" type="radio" label="Gender" layout="horizontal">
+				<option id="option_4" label="Male" value="1" />
+				<option id="option_5" label="Female" value="2" />
+			</field>
+			<field id="account_acceptmailtypes" type="checkbox" label="What type of email can you accept?" layout="horizontal">
+				<option id="option_6" label="Text" value="0" />
+				<option id="option_7" label="HTML" value="1" />
+				<rule type="required" />
+			</field>
+			<field id="account_interests" type="select" label="Interests" size="3" multiple="true">
+				<option id="option_8" label="Computers" value="1" />
+				<option id="option_9" label="Internet" value="2" />
+				<option id="option_10" label="Other Stuff" value="3" selected="true" />
+			</field>
+			<include file="test2.xml" />
+			<include file="test3.xml">
+				<get id="ag1a" />
+				<get id="ag5a" />
+			</include>
+			<field id="account_checkbox_states" type="checkbox" label="States" layout="horizontal">
+				<query sqlid="stateQuery" connection="songcentral">
+					<eachQueryResult as="result">
+						<option id="option_state_{result.state_id}" label="{result.state_name}" value="{result.state_id}" />
+					</eachQueryResult>
+				</query>
+			</field>
+			<field type="agreement" id="membership_agreed" 	label="" file="forms/agreement.html">
+				<parameter id="param1" key="CHECKBOX_LABEL" value="Do you accept these terms &amp; conditions of use?" />
+				<rule id="rule_agreement" type="required" />
+			</field>
+			<control id="control_submit" label="Submit" />
+		</fieldset>
+		<template file="content/test.tpl" />
+		<html id="html2">
+			<![CDATA[
+				<h1>&lt;/FML Test&gt;</h1>
+			]]>
+		</html>
+	</form>
+</fml>

@@ -1,0 +1,18 @@
+<?php
+/*
+ * Simple Core 2.0.0
+ * Copyright(c) 2004-2008, Simple Site Solutions Pty. Ltd.
+ * 
+ * http://www.s3core.com/SCPL
+ */
+class fml_element_field_type_file extends fml_element_field_type_text
+{
+	public function initiate()
+	{
+		$this->parent->setAttribute('proxy',null,FML_DATATYPE_STRING);
+		$this->template=str_replace('maxlength="{MAXLENGTH}"','',$this->template);
+		//$this->template=str_replace(' />',' /><input type="hidden" id="{ID}_proxy" value="{PROXY}" />',$this->template);
+		return true;
+	}
+}
+?>

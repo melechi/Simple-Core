@@ -1,0 +1,23 @@
+This is a rough outline of the Simple Core roadmap. It may not be accurate.
+
+2.1
+New Exception Handler.
+New Application Event Model - This will tie control of components into settings.xml.
+New 'View' model (replaces 'page's).
+
+2.2
+New Component: DBTools.
+New Component: Template Handler (Based off of existing one).
+
+2.3
+Optimization
+
+2.4
+?
+
+2.5
+Drop PHP 5.2 support or figure out a way to work with both 5.2 and 5.3.
+
+3.0
+Upgrade to PHP6, possibly drop support for PHP5.
+Full rewrite of Simple Core.

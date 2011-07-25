@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<server>
+	<name>Song Central</name>
+	<providerDir>providers</providerDir>
+	<providers>
+		<!-- <provider type="polling" handler="updater" interval="1000" /> -->
+		<provider type="remoting" namespace="authentication">
+			<module name="session">
+				<method name="check" args="1" />
+				<method name="read" args="1" />
+				<method name="update" args="1" />
+				<method name="delete" args="1" />
+			</module>
+		</provider>
+		<provider type="polling" handler="session" interval="600000" />
+		<provider type="remoting" namespace="google">
+			<module name="main">
+				<method name="setChromeOptIn" args="1" />
+			</module>
+		</provider>
+		<provider type="remoting" namespace="tender">
+			<module name="main">
+				<method name="getGridConfig" args="0" />
+				<method name="listAll" args="1" />
+				<method name="sampleSong" args="2" />
+				<method name="response" args="3" />
+			</module>
+		</provider>
+		<provider type="remoting" namespace="songfile">
+			<module name="main">
+				<method name="getGridConfig" args="1" />
+				<method name="listAll" args="1" />
+			</module>
+			<module name="alert">
+				<method name="watch" args="1" />
+				<method name="submit" args="1" />
+				<method name="delete" args="1" />
+				<method name="listAll" args="1" />
+			</module>
+		</provider>
+		<provider type="remoting" namespace="reviewer">
+			<module name="main">
+				<method name="getGridConfig" args="0" />
+				<method name="listAll" args="1" />
+			</module>
+		</provider>
+		<provider type="remoting" namespace="search">
+			<module name="main">
+				<method name="simple" args="1" />
+				<method name="tender" args="1" />
+				<method name="advanced" args="1" />
+				<method name="save" args="1" />
+				<method name="listAll" args="1" />
+			</module>
+		</provider>
+		<provider type="remoting" namespace="paypal">
+			<module name="main">
+				<method name="beginTransaction" args="2" />
+			</module>
+		</provider>
+		<provider type="remoting" namespace="competition">
+			<module name="main">
+				<method name="getGridConfig" args="0" />
+				<method name="getDetails" args="1" />
+				<method name="saveDetails" args="2" />
+				<method name="listAll" args="1" />
+				<method name="getRestrictionTypes" args="0" />
+				<method name="getRestrictions" args="1" />
+				<method name="getCommunications" args="1" />
+				<method name="getPayPalConfig" args="0" />
+				<method name="contact" args="3" />
+				<method name="announceCompetition" args="1" />
+				<method name="openCompetition" args="1" />
+				<method name="endCompetition" args="1" />
+				<method name="getCompRestrictions" args="1" />
+				<method name="openCompForSubmissions" args="1" />
+				<method name="closeCompForSubmissions" args="1" />
+			</module>
+			<module name="round">
+				<method name="getGridConfig" args="0" />
+				<method name="getManagingGridConfig" args="0" />
+				<method name="getJudgingGridConfig" args="0" />
+				<method name="listAll" args="1" />
+				<method name="managingListAll" args="1" />
+				<method name="judgingListToCurrent" args="1" />
+				<method name="manage_getSubmissionsList" args="1" />
+				<method name="manage_getParticipantsList" args="1" />
+				<method name="manage_getJudgesList" args="1" />
+				<method name="canEnd" args="1" />
+			</module>
+			<module name="communications">
+				<method name="listAll" args="1" />
+				<method name="send" args="1" />
+			</module>
+			<module name="my">
+				<method name="getGridConfigs" args="0" />
+				<method name="getActive" args="1" />
+				<method name="getCurrent" args="1" />
+				<method name="getOld" args="1" />
+			</module>
+			<module name="judge">
+				<method name="getGridConfig" args="0" />
+				<method name="listAll" args="1" />
+				<method name="invite" args="2" />
+				<method name="getInviteOptions" args="0" />
+				<method name="scoreSubmission" args="3" />
+				<method name="publishSubmission" args="1" />
+				<method name="listSubmissionsToScore" args="1" />
+				<method name="canViewSubmission" args="2" />
+				<method name="assignJudge" args="2" />
+				<method name="removeJudge" args="2" />
+			</module>
+			<module name="participant">
+				<method name="getGridConfig" args="0" />
+				<method name="listAll" args="1" />
+				<method name="invite" args="2" />
+				<method name="join" args="1" />
+				<method name="getCompStatus" args="1" />
+				<method name="disqualify" args="1" />
+			</module>
+			<module name="submission">
+				<method name="canSubmit" args="1" />
+				<method name="getLastSID" args="0" />
+				<method name="setDetails" args="5" />
+				<method name="getJudgeList" args="1" />
+				<method name="getParticipantSubmissions" args="1" />
+			</module>
+			<module name="transaction">
+				<method name="getGridConfig" args="0" />
+				<method name="listAll" args="1" />
+				<method name="confirm" args="1" />
+			</module>
+		</provider>
+		<provider type="remoting" namespace="customer">
+			<module name="CRUD">
+				<method name="create" args="1" />
+				<method name="read" args="1" />
+				<method name="update" args="1" />
+				<method name="delete" args="1" />
+			</module>
+		</provider>
+	</providers>
+</server>

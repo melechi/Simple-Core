@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test>
+	<single>
+		<foo bar="1"></foo>
+	</single>
+	<double>
+		<foo bar="1"></foo>
+		<foo bar="2" abc="3"></foo>
+		<foo>1</foo>
+		<foo>abc</foo>
+		<foo></foo>
+	</double>
+	<empty></empty>
+	<loop>
+		<item>1</item>
+		<item>10</item>
+		<item>100</item>
+		<item>1000</item>
+		<item>10000</item>
+	</loop>
+</test>

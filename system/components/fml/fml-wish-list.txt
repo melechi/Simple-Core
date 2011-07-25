@@ -1,0 +1,270 @@
+FML
+===
+This file outlines a final 'draft' of features and ideas for FML v1.0.
+
+This document is broken into four parts.
+
+* Depreciations
+* Improvements
+* Additions
+* Sub FML
+#-------------#
+#Depreciations#
+#-------------#
+
+<check>
+<radio>
+<onFail>
+<onSuccess>
+
+#------------#
+#Improvements#
+#------------#
+* Fieldset Nesting.
+
+* Handling of enum and set data (via <dbfield> element)
+
+* The existing <conditional> element will be made available everywhere as a wrapper element and its syntax will be greatly improved.
+This will also require a set of new functions to manipulate FML variables.
+Proposed syntax:
+<conditional condtion="var.userType==industry">
+	<ifTrue>
+		<field id="button_playSong" type="button" label="Play Song" />
+	</ifTrue>
+	<ifFalse>
+		<conditional condtion="var.userType==reviewer">
+			<ifTrue>
+				<field id="button_review" type="button" label="Review" />
+			</ifTrue>
+		</conditional>
+	</ifFalse>
+</condtional>
+Second proposed syntax:
+<conditional>
+	<if condtion="var.userType==industry">
+		<field id="button_playSong" type="button" label="Play Song" />
+	</if>
+	<elseif condtion="var.userType==reviewer">
+		<field id="button_review" type="button" label="Review" />
+	</elseif>
+	<else>
+		<field id="button_someOtherButton" type="button" label="Some Other Button" />
+	</else>
+</condtional>
+
+* New parameters for <field>. These will be 'emptyText', 'selectOnFocus' and 'allowedKeys'.
+Thinking about making these fields even more dynamic...
+Ideas include adding new elements such as event elements which act as <script> (with type 'javascript' elements but bind the events dynamicly.
+and more as they come...
+
+* Field types submit,button and reset will be removed and be replaced by a new element <control>.
+
+* Not defining an ID is okay but the FML component will generate an ID for that element.
+
+* <option> is now tied to field types select, radio and check and behaves the same for each type.
+
+* The select field type now supports the 'size' and 'multiple' attributes.
+
+* Field type 'check' has been changed to 'checkbox'.
+
+#---------#
+#following added by Peter 5/5/08
+#---------#
+
+*	Allow 'class' attribute for <field> elements together with special parse-handlers.
+	The behaviour of the FML parser should be such that it adds the specified class-attribute's
+	value as an addendum to the existing 'row' class-attribute of the resulting <ul> element.
+
+	And, as a complement to this (proposed) feature,...
+*	Two new functions; addClass('xyz'), and removeClass('xyz') should also be added.
+
+An example of where this feature would be usefull is where, by add 'disabled' as a class the <ul> element,
+the CSS could then be specified to not only disable input elements but also, and more importantly,
+it would enable customisation for the whole appearance of the <ul> element's children such as greying the colour of disabled-field labels.
+
+**	NB: that setAttributeValue('prefix','xyz') and setAttributeValue('suffix','xyz') currently do not work and would be useful if did so.
+
+#---------#
+#Additions#
+#---------#
+* New element: <dbfield>. These elements will cause FML to build an html input element whose 'field' definition
+is derived from the db table and field type information specified within its attributes.
+Proposed syntax:
+
+	<dbfield id="xyz" table="qrz" [type="textarea/check/radio/select"]* />
+
+...where the type attribute is optional only for db fields specified as either enum or set type fields.
+NOTES:
+
+1) The type of input element will be determined from the db's column info for the specified field where:
+
+	db Column-type		Resulting Input Type
+	--------------		--------------------
+	set					checkbox*
+	enum				radio*
+	(else)				text**
+	*  	unless otherwise specified, within type attribute, as either; check, radio, or select.
+	**	unless otherwise spedified, within type atribute, as textarea.
+
+2)	(A maybe suggestion that could be useful...) The default value of db field's definition also becomes
+	the default input value if not otherwise specified from existing $_POST of setvalue().
+
+3) If <rules> child element is not defined then will use column info to derive rules where:
+	a) field is defined as not-null then <required> rule applied.
+	b) field length is specified then <length> rule applied.
+
+4) [Tim] The following query could be used to derive the above if only one field info required:
+		"SELECT DATA_TYPE c_type, CHARACTER_MAXIMUM_LENGTH c_size, COLUMN_DEFAULLT c_default, IS_NULLABLE c_notreqd FROM `COLUMNS` WHERE TABLE_NAME='qrz' AND COLUMN_NAME='xyz';"
+	However, would be best to use same as the $this->dbconnect->getColumnInfo() because single query gets all field info for table at once.
+	*** IE it would be more efficient if only one query for each table rather than one query for each field (of each table) which of course applies when element is used more than once for same table.
+	*** NB also that the previous select statement requires that the user has been granted access privileges to the `information_schema` table whereas the below has less restriction and is more generally available.
+		"SHOW COLUMNS FROM  'qrz'"
+
+---------
+* New element: <template>. These elements will cause FML to insert the defined template file that will be parsed, as normally done, by the same-named class (template.php).
+  NB: parsing of placeholder variable elements, within the specified template file, that contain (an)other form(s) sourced from FML will be ignored/removed.
+  However, all other placeholders will be processed as per normal by the same-named core class.
+Proposed syntax:
+	<template src="path-starting-from-template-directory" />
+
+---------
+* New element: <include>. These elements will allow FML files to include whole or portions of other FML Files.
+This also introduces another new element <get> which requires 1 attribute 'id' which will
+These elements can be used anywhere.
+Proposed syntax:
+
+<include file="fmlDoc.xml" /> - Will include everything within <form></form>
+<include file="fmlDoc.xml">
+	<get id="field_id_10" />
+	<get id="field_id_29" />
+</include>
+- Will include only those ids.
+
+[*Notes]
+	1) Would it be possible for <file src="fileX.xml"/> syntax to simply gather all of fileX fields?
+	2) Maybe better to use element name like <addin> or <insert> or <include> because aggregate imo doesn't fit with function.
+
+---------
+* New element: <script>. These elements will be implemented which will define a type param (PHP|JavaScript).
+An optional scope param can also be used.
+ID param is required.
+These elements can be used anywhere.
+Proposed Syntax:
+<script id="" type="php" scope="application.songcentral">
+	print $this->helloWorld();
+</script>
+<script id="playSong" type="javascript" scope="songcentral.player">
+this.play();
+</script>
+
+---------
+* New post-query elements:
+<eachQueryResult>: This element loops through the resultset. It has a required param "as" which defines how a result item is
+to be accessed within the loop.
+<sql> This will contain the actual SQL query. The inner text can be wrapped as CDATA for long and complex queries.
+Proposed Syntax:
+<query> must now specify the ID of the <sql> block as the attribute "sqlid".
+<field type="select" id="genre_0" name="genre_0" label="Song Genre:" >
+	<option value="0"></option>
+	<sql id="genreQuery_0">SELECT genre_id, genre_name FROM [PREFIX]genre WHERE genre_parent_id=0 ORDER BY genre_name;</sql>
+	<query connection="songcentral" sqlid="genreQuery_0">
+		<eachQueryResult as="parentGenre">
+			<option label="{parentGenre.genre_name}" value="{parentGenre.genre_id}" />
+			<sql id="genreQuery_0_{parentGenre.genre_id}">SELECT * FROM [PREFIX]genre WHERE genre_parent_id={parentGenre.genre_id} ORDER BY genre_name;</sql>
+			<fieldset id="parent_id_{parentGenre.genre_id}" style="display:none;" class="subgenre">
+				<field id="genre_id_{parentGenre.genre_id}" name="genre_id[{parentGenre.genre_id}][]" label="...sub-genre:" type="checkbox" layout="3,15">
+					<query	connection="songcentral" sqlid="genreQuery_0_{parentGenre.genre_id}">
+						<eachQueryResult as="childGenre">
+							<option label="{childGenre.genre_name}" value="{childGenre.genre_id}" />
+						</eachQueryResult>
+					</query>
+				</field>
+			</fieldset>
+		</eachQueryResult>
+	</query>
+	<rule type="required" />
+</field>
+---------
+* New element: <setFieldMessage>. This element sets a message above a field.
+Params:
+ - field:	The ID of a field from the compiled FML document.
+ - message:	A string that will appear above the field.
+ - class:	A CSS class to add to the message.
+ - style:	CSS style to add to the message.
+Proposed Syntax:
+<field id="account_password" label="Password:" type="password" size="50">
+	<rule type="required" />
+	<rule type="length" min="6" max="64">
+		<onFail>
+			<conditional condition="min.fail">
+				<setFieldMessage field="account_password" message="Password is too short. Minimum password length is {rule.min} characters.">
+			</conditional>
+			<conditional condition="max.fail">
+				<setFieldMessage field="account_password" message="Password is too long. Maximum password length is {rule.max} characters.">
+			</conditional>
+		</onFail>
+	</rule>
+</field>
+---------
+* New element: <hbox>. A container element which places renderable elements in a horizontal order.
+
+
+
+---------
+* New element: <vbox>. A container element which places renderable elements in a vertical order.
+
+
+
+---------
+* New element: <paginate>. A container element that paginates a form.
+This element should handle both non-javascript and javascript controlled pagination.
+Params:
+ - page: the page which its contents appears.
+
+
+
+---------
+* New element: <comment>. An non-evaluating element for entering comments.
+
+
+
+---------
+* New element <control>. An element for controlling actions in a form.
+Params:
+ - type: The type of control it is.
+
+
+---------
+* New element <datalist>.
+Params:
+- proxy:
+
+
+
+---------
+* New element <option>.
+Params:
+- label:
+- value:
+
+#-------#
+#Sub FML#
+#-------#
+Sub FML is a custom language used to interact with the document (or other documents) on a basic level.
+
+Each element automatically assigns itself a scope of self, unless the scope parameter is set. If the scope parameter
+is set, then the element will be bound to that referenced element resulting in the object 'this' in the Sub Language to
+reference to that referenced element.
+
+Namespaces
+----
+Namespaces are reserved containers for holding variables.
+
+Reserved namespaces:
+this - A scope bound namespace.
+var - A space for globally accessible variables.
+local - A space for localized language variables.
+
+Syntax
+----
+The Sub FML language is a mix between loose JavaScript and PHP.

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config version="2.0">
+	<debug>1</debug>
+	
+	<online>1</online>
+	<defaultApplication>sandbox</defaultApplication>
+	<taintmode>
+		<active>1</active>
+		<level>3</level>
+		<!--
+		LEVEL DEFINITIONS
+		=================
+		1 (Low):		addslashes
+		2 (Medium):		addslashes,htmlentities
+		3 (High):		addslashes,htmlentities,strip_tags
+		 -->
+	</taintmode>
+	<component>
+		<database>
+			<connection name="core">
+				<type>mysql</type>
+				<host>localhost</host>
+				<username>username</username>
+				<password>password</password>
+				<database>s3core</database>
+				<prefix>s3core_</prefix>
+			</connection>
+		</database>
+		<session>
+			<type>sql</type>
+			<expiretime>20</expiretime>
+		</session>
+		<phpMailer>
+			<from>example@example.com</from>
+			<fromName>Example Person</fromName>
+			<host>mail.example.com</host>
+			<port>25</port>
+			<username>example@example.com</username>
+			<password>password</password>
+			<authentication>1</authentication>
+			<timeout>25</timeout>
+			<persistant>1</persistant>
+			<debug>0</debug>
+		</phpMailer>
+		<page>
+			<gzip level="0">0</gzip>
+			<captureBuffer>1</captureBuffer>
+		</page>
+	</component>
+	<email>
+		<defaulthandler>sendmail</defaulthandler>
+	</email>
+	<path>
+		<system>system</system>
+		<logs>logs</logs>
+		<publichtml>public_html</publichtml>
+		<core>core</core>
+		<components>components</components>
+		<applications>applications</applications>
+		<data>data</data>
+		<debug>debug</debug>
+		<publicroot>songcentral</publicroot>
+		<publicrootcss>css</publicrootcss>
+		<publicrootjs>js</publicrootjs>
+		<publicrootimages>images</publicrootimages>
+	</path>
+
+	<debuguri></debuguri>
+
+</config>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<activeRecord version="1.0">
+	<name>category</name>
+	<prefix>category</prefix>
+	<database>s3core</database>
+	<type>table</type>
+	<schema>
+		<column name="category_id"			type="int" length="10" primarykey="true" id="true" />
+		<column name="category_parentid"	type="int" length="10" />
+		<column name="category_namespace"	type="varchar" length="64" />
+		<column name="category_name"		type="varchar" length="256" />
+		<column name="category_safename"	type="varchar" length="256" />
+		<column name="category_description"	type="varchar" length="512" />
+		<column name="category_status"		type="tinyint" length="1" />
+	</schema>
+	<events>
+		<column name="category_name">
+			<onChange object="tableEvents" method="onCategoryNameChange" />
+		</column>
+	</events>
+</activeRecord>

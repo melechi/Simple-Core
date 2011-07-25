@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<driver>
+	<type>sqlite</type>
+	<functions>
+		<connect>sqlite_open</connect>
+		<pconnect>sqlite_popen</pconnect>
+		<close>sqlite_close</close>
+		<selectdb>mysql_select_db</selectdb>
+		<dbquery>sqlite_query</dbquery>
+		<result>mysql_result</result>
+		<affectedrows>sqlite_changes</affectedrows>
+		<numrows>sqlite_num_rows</numrows>
+		<fetcharray>sqlite_fetch_array</fetcharray>
+		<seek>sqlite_seek</seek>
+		<lastid>sqlite_last_insert_rowid</lastid>
+		<queryinfo>mysql_info</queryinfo>
+		<errormessage>sqlite_error_string</errormessage>
+	</functions>
+</driver>
