@@ -23,6 +23,7 @@ class component_account extends component
 	{
 		$this->branch('authentication');
 		$this->branch('validation');
+		$this->branch('group');
 		return true;
 	}
 	
