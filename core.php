@@ -72,7 +72,7 @@ function ifIsFileRequireOnce($file='')
 final class core
 {
 	//Public Attributes
-	public $version				='2.3.0';
+	public $version				='2.3.1';
 	/**
 	 * @var config - The core configuration (usually config.xml)
 	 */

@@ -111,7 +111,7 @@ abstract class application extends overloader
 				{
 					$fNr['{$my->'.$key.'}']=$val;
 				}
-				foreach ($this->config->path as $key=>$val)
+				foreach ($this->config->path->toArray() as $key=>$val)
 				{
 					$fNr['{$config->path->'.$key.'}']=$val;
 				}
