@@ -60,7 +60,8 @@ SQL;
 			DELETE FROM [PREFIX]group
 			WHERE group_id='{$groupID}';
 SQL;
-			$return=$this->component->database->c('core')->query($query);
+			$this->component->database->c('core')->query($query);
+			$return=$this->emptyGroup($groupID);
 		}
 		return $return;
 	}
@@ -71,7 +72,7 @@ SQL;
 		if (count($params))
 		{
 			$query=<<<SQL
-			INSERT INTO [PREFIX]group
+			INSERT INTO [PREFIX]group_account
 			(
 				gaccount_group_id,
 				gaccount_account_id,
@@ -90,8 +91,8 @@ SQL;
 	public function emptyGroup($groupID)
 	{
 		$query=<<<SQL
-		DELETE FROM [PREFIX]group
-		WHERE gaccount_id='{$groupID}';
+		DELETE FROM [PREFIX]group_account
+		WHERE gaccount_group_id='{$groupID}';
 SQL;
 		return $this->component->database->c('core')->query($query);
 	}
@@ -99,11 +100,47 @@ SQL;
 	public function removeAccount($groupID,$gAccount_accountID)
 	{
 		$query=<<<SQL
-		DELETE FROM [PREFIX]group
+		DELETE FROM [PREFIX]group_account
 		WHERE gaccount_group_id='{$groupID}'
 		AND gaccount_account_id='{$gAccount_accountID}';
 SQL;
 		return $this->component->database->c('core')->query($query);
+	}
+	
+	public function get($groupID)
+	{
+		$query=<<<SQL
+		SELECT *
+		FROM [PREFIX]group
+		WHERE group_id='{$groupID}'
+		LIMIT 1;
+SQL;
+		if ($this->component->database->c('core')->query($query))
+		{
+			return $this->component->database->result();
+		}
+		else
+		{
+			return false;
+		}
+	}
+	
+	public function getAccounts($groupID)
+	{
+		$query=<<<SQL
+		SELECT *
+		FROM [PREFIX]group_account
+		LEFT JOIN s3core_account ON account_id=gaccount_account_id
+		WHERE gaccount_group_id='{$groupID}';
+SQL;
+		if ($this->component->database->c('core')->query($query))
+		{
+			return $this->component->database->result();
+		}
+		else
+		{
+			return false;
+		}
 	}
 }
 ?>
